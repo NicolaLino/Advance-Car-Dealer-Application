@@ -6,12 +6,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,6 +22,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private Button connectButton;
+    public static ArrayList<Car> carDetails;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
                     while ((line = reader.readLine()) != null) {
                         response.append(line);
                     }
-                    return parseJsonResponse(response.toString());
+                    carDetails = parseJsonResponse(response.toString());
+                    return carDetails;
                 }
                 else{
                     return new ArrayList<>();

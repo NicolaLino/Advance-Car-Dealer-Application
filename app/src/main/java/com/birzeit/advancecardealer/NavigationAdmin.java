@@ -65,7 +65,7 @@ public class NavigationAdmin extends AppCompatActivity implements NavigationView
 
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeAdminFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_admin, new HomeAdminFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
     }
@@ -75,13 +75,13 @@ public class NavigationAdmin extends AppCompatActivity implements NavigationView
         int itemId = item.getItemId();
 
         if (itemId == R.id.admin_nav_home) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeAdminFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_admin, new HomeAdminFragment()).commit();
         } else if (itemId == R.id.admin_nav_delete) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DeleteCustomerFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_admin, new DeleteCustomerFragment()).commit();
         } else if (itemId == R.id.admin_nav_add) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AddAdminFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_admin, new AddAdminFragment()).commit();
         } else if (itemId == R.id.admin_nav_view_reserves) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ViewReservesFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_admin, new ViewReservesFragment()).commit();
         } else if (itemId == R.id.admin_nav_logout) {
             Intent returnToMain = new Intent(NavigationAdmin.this, LoginPage.class);
             startActivity(returnToMain);
