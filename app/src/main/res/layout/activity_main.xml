@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="393dp"
+        android:layout_height="285dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="52dp"
+        android:layout_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/main_car_removebg" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="431dp"
+        android:layout_height="424dp"
+        android:background="@drawable/rounded_upper_corners"
+        android:backgroundTint="@color/white"
+        android:orientation="vertical"
+        android:paddingVertical="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/textViewHeader"
+            android:layout_width="451dp"
+            android:layout_height="16dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Find Your Dream Car Today"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="397dp"
+            android:layout_height="71dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="With our easy-to-use app, you can browse through our inventory, compare prices, and find the car that suits your needs and budget."
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_weight="1"
+            android:text="" />
+
+        <Button
+            android:id="@+id/button_connect"
+            android:layout_width="257dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_margin="50dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/black"
+            android:text="Get Started"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

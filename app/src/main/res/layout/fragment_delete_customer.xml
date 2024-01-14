@@ -1,0 +1,29 @@
+<!-- res/layout/fragment_delete_customer.xml -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editTextEmailToDelete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Customer Email"
+        android:inputType="textEmailAddress"
+        />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete Customer"
+        android:backgroundTint="@color/black"
+        android:fontFamily="@font/robot_medium"
+        android:textSize="18sp"
+        android:layout_below="@id/editTextEmailToDelete"
+        app:cornerRadius="20dp"
+        />
+
+</RelativeLayout>

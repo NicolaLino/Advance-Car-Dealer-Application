@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".SignupPage">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutSignup"
+        android:layout_width="431dp"
+        android:layout_height="350dp"
+        android:background="@drawable/rounded_lower_corners"
+        android:backgroundTint="@color/black"
+        android:orientation="vertical"
+        android:paddingVertical="25dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/constraintLayoutSignup"
+        android:layout_width="357dp"
+        android:layout_height="712dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/rounded_corners"
+        android:elevation="15dp"
+        android:orientation="vertical"
+        android:padding="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayoutSignup">
+
+        <TextView
+            android:id="@+id/signupText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/robot_medium"
+            android:text="Sign Up"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <!-- Email field -->
+        <EditText
+            android:id="@+id/emailSignup"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custom_edit_text"
+            android:drawableLeft="@drawable/baseline_email_24"
+            android:drawablePadding="8dp"
+            android:hint="Email"
+            android:padding="8dp"
+            android:textColor="@color/black" />
+
+        <!-- First name field -->
+        <EditText
+            android:id="@+id/firstNameSignup"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custom_edit_text"
+            android:drawableLeft="@drawable/baseline_person_outline_24"
+            android:drawablePadding="8dp"
+            android:hint="First Name"
+            android:padding="8dp"
+            android:textColor="@color/black" />
+
+        <!-- Last name field -->
+        <EditText
+            android:id="@+id/lastNameSignup"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custom_edit_text"
+            android:drawableLeft="@drawable/baseline_person_24"
+            android:drawablePadding="8dp"
+            android:hint="Last Name"
+            android:padding="8dp"
+            android:textColor="@color/black" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custom_edit_text"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/textViewGender"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/gender"
+                android:gravity="left|center_vertical"
+                android:text=" Gender"
+                android:textColor="@color/black"
+                android:textSize="19dp" />
+
+            <Spinner
+                android:id="@+id/genderSignup"
+                android:layout_width="185dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:autofillHints="Gender"
+                tools:ignore="TouchTargetSizeCheck" />
+
+        </LinearLayout>
+
+        <!-- Password field -->
+        <EditText
+            android:id="@+id/passwordSignup"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custom_edit_text"
+            android:drawableLeft="@drawable/baseline_lock_24"
+            android:drawablePadding="8dp"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="8dp"
+            android:textColor="@color/black" />
+
+        <!-- Confirm Password field -->
+        <EditText
+            android:id="@+id/confirmPasswordSignup"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custom_edit_text"
+            android:drawableLeft="@drawable/baseline_lock_24"
+            android:drawablePadding="8dp"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+            android:padding="8dp"
+            android:textColor="@color/black" />
+
+        <!-- Country Field -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custom_edit_text"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/textViewCountry"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/globe_vector"
+                android:gravity="left|center_vertical"
+                android:text=" Country"
+                android:textColor="@color/black"
+                android:textSize="19dp" />
+
+            <Spinner
+                android:id="@+id/countrySignup"
+                android:layout_width="185dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:autofillHints="Gender"
+                tools:ignore="TouchTargetSizeCheck" />
+
+        </LinearLayout>
+
+        <!-- City Field -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custom_edit_text"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/textViewCity"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/city"
+                android:gravity="left|center_vertical"
+                android:text=" City"
+                android:textColor="@color/black"
+                android:textSize="19dp" />
+
+            <Spinner
+                android:id="@+id/citySignup"
+                android:layout_width="185dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:autofillHints="Gender"
+                tools:ignore="TouchTargetSizeCheck" />
+
+        </LinearLayout>
+
+        <!-- Phone Number Field -->
+        <LinearLayout
+            android:id="@+id/phoneNumberLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custom_edit_text"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/textViewPhone"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/phone"
+                android:gravity="center_vertical"
+                android:text=" +000"
+                android:textColor="@color/black"
+                android:textSize="19dp" />
+
+            <EditText
+                android:id="@+id/phoneNumberSignup"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="1dp"
+                android:hint="Phone Number"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <!-- Sign Up button -->
+        <Button
+            android:id="@+id/buttonSignupAction"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/robot_medium"
+            android:text="Sign Up"
+            android:textSize="18sp"
+            app:cornerRadius="20dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonBackToLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="Already have an Account? Login"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayoutSignup"
+        app:layout_constraintVertical_bias="0.138" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
