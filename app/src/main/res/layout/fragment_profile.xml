@@ -1,14 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileFragment">
+    android:layout_gravity="center"
+    tools:context=".ProfileFragment"
+    android:layout_margin="10dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <EditText
+        android:id="@+id/firstNameProfile"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/custom_edit_text"
+        android:hint="First Name"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/lastNameProfile"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/custom_edit_text"
+        android:hint="Last Name"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/firstNameProfile" />
+
+
+    <EditText
+        android:id="@+id/phoneNumberProfile"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/custom_edit_text"
+        android:hint="Phone Number"
+        android:inputType="phone"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lastNameProfile" />
+
+    <EditText
+        android:id="@+id/passwordProfile"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/custom_edit_text"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="8dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/phoneNumberProfile" />
+
+    <EditText
+        android:id="@+id/confirmPasswordProfile"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/custom_edit_text"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/passwordProfile" />
+
+    <Button
+        android:id="@+id/button_save"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/black"
+        android:fontFamily="@font/robot_medium"
+        android:text="Save Changes"
+        android:textSize="18sp"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/confirmPasswordProfile"
+        app:layout_constraintVertical_bias="0.0" />
+</androidx.constraintlayout.widget.ConstraintLayout>

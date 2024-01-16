@@ -9,6 +9,7 @@
     android:layout_marginHorizontal="10dp"
     app:cardCornerRadius="15dp"
     app:cardElevation="8dp"
+    android:backgroundTint="@color/black"
     android:layout_width="match_parent"
     android:layout_height="100dp">
 
@@ -77,7 +78,7 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:text="Corolla"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/listImage"
@@ -89,7 +90,7 @@
             android:layout_height="21dp"
             android:layout_marginStart="12dp"
             android:text="Toyota Motor Corporation"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="15sp"
             app:layout_constraintBottom_toTopOf="@+id/priceTextView"
             app:layout_constraintStart_toEndOf="@+id/listImage"

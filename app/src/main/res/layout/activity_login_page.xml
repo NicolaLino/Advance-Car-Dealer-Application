@@ -113,10 +113,10 @@
             android:id="@+id/button_login"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:backgroundTint="@color/black"
-            android:fontFamily="@font/robot_medium"
             android:text="Login"
             android:textSize="18sp"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/robot_medium"
             app:cornerRadius="20dp" />
     </LinearLayout>
 

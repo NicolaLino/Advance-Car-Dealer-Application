@@ -23,10 +23,8 @@ public class CarMenuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_car_menu, container, false);
         ArrayList<Car> carsRetrievedDetails = MainActivity.carDetails;
-        // check if the carDetails ArrayList is empty or not
         if(carsRetrievedDetails != null){
             Log.d("TAG", "onCreateView: ArrayList is not empty");
             RecyclerView recyclerView = view.findViewById(R.id.mRecyclerView);

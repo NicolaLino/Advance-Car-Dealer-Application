@@ -8,12 +8,14 @@ public class Car {
     private String fuelType;
     private String transmissionType;
     private String mileage;
+    private String url;
+
 
     // Constructors
     public void CarDetails() {
     }
 
-    public void CarDetails(int id, String factoryName, String model, int price, String fuelType, String transmissionType, String mileage) {
+    public void CarDetails(int id, String factoryName, String model, int price, String fuelType, String transmissionType, String mileage, String url) {
         this.id = id;
         this.factoryName = factoryName;
         this.model = model;
@@ -21,6 +23,7 @@ public class Car {
         this.fuelType = fuelType;
         this.transmissionType = transmissionType;
         this.mileage = mileage;
+        this.url = url;
     }
 
     // Getter and Setter methods
@@ -78,5 +81,13 @@ public class Car {
 
     public void setMileage(String mileage) {
         this.mileage = mileage;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
