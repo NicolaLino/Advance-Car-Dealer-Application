@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected ArrayList<Car> doInBackground(Void... voids) {
-            String apiUrl = "https://mpfa9da8be12d248968a.free.beeceptor.com/car-data";
+            String apiUrl = "https://mp86074d319306e9d8b3.free.beeceptor.com/data-special?fbclid=IwAR1NLtZKwJcphy5ODchLLDinKSCAZOjO-qp67SLJ4b-fl6NNgTRiqtAWu9k";
 
             try {
                 URL url = new URL(apiUrl);
@@ -116,6 +116,14 @@ public class MainActivity extends AppCompatActivity {
                 car.setTransmissionType(transmissionType);
                 String mileage = jsonObject.getString("mileage");
                 car.setMileage(mileage);
+                String url = jsonObject.getString("url");
+                car.setUrl(url);
+
+                if(jsonObject.getInt("special")==0){
+                    car.setSpecial(false);
+                }else{
+                    car.setSpecial(true);
+                }
 
                 carDetails.add(car);
             }

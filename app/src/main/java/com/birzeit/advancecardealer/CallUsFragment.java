@@ -1,5 +1,7 @@
 package com.birzeit.advancecardealer;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,58 +9,44 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CallUsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CallUsFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public CallUsFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CallUsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CallUsFragment newInstance(String param1, String param2) {
-        CallUsFragment fragment = new CallUsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_call_us, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_call_us, container, false);
+
+        Button btnCallUs = view.findViewById(R.id.button_contact_phone);
+        Button btnFindUs = view.findViewById(R.id.button_contact_maps);
+        Button btnEmailUs = view.findViewById(R.id.button_contact_email);
+
+        btnCallUs.setOnClickListener(v -> {
+            // Open the dialer with the phone number
+            Intent dialIntent = new Intent(Intent.ACTION_DIAL);
+            dialIntent.setData(Uri.parse("tel:0599000000"));
+            startActivity(dialIntent);
+        });
+
+        btnFindUs.setOnClickListener(v -> {
+            // Open Google Maps to find the location
+            Uri gmmIntentUri = Uri.parse("geo:0,0?q=Car+Dealer");
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            startActivity(mapIntent);
+        });
+
+        btnEmailUs.setOnClickListener(v -> {
+            Intent gmailIntent = new Intent();
+            gmailIntent.setAction(Intent.ACTION_SENDTO);
+            gmailIntent.setType("message/rfc822");
+            gmailIntent.setData(Uri.parse("mailto:"));
+            gmailIntent.putExtra(Intent.EXTRA_EMAIL, new String("salibamanolii@gmail.com"));
+            startActivity(gmailIntent);
+        });
+
+        return view;
     }
 }

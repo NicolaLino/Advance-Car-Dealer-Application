@@ -109,4 +109,17 @@ public class LoginDBHelper extends SQLiteOpenHelper {
         db.close();
         return deletedRows > 0;
     }
+
+    public boolean updateUserDetails(String email, String newFirstName, String newLastName, String newPhoneNumber, String newPassword) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_FIRSTNAME, newFirstName);
+        contentValues.put(COL_LASTNAME, newLastName);
+        contentValues.put(COL_PHONE,newPhoneNumber);
+        contentValues.put(COL_PASSWORD, newPassword);
+        int result = db.update(TABLE_NAME, contentValues, COL_EMAIL + "=?", new String[]{email});
+        db.close();
+        return result > 0;
+
+    }
 }

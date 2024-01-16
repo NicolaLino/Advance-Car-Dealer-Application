@@ -65,17 +65,22 @@
             android:layout_weight="1"
             android:text="" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/button_connect"
-            android:layout_width="257dp"
-            android:layout_height="60dp"
+            style="@style/Widget.Material3.Button.Icon"
+            android:layout_width="219dp"
+            android:layout_height="64dp"
             android:layout_gravity="center"
             android:layout_margin="50dp"
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/black"
             android:text="Get Started"
             android:textColor="@color/white"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            app:icon="@drawable/baseline_arrow_outward_24"
+            app:iconGravity="textEnd"
+            app:iconPadding="5dp"
+            app:iconSize="25dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

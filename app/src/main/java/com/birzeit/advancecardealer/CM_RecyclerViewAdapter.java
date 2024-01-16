@@ -1,13 +1,25 @@
 package com.birzeit.advancecardealer;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
+import com.google.android.material.button.MaterialButton;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -15,15 +27,57 @@ import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Date;
 
-class CM_RecyclerViewAdapter extends RecyclerView.Adapter<CM_RecyclerViewAdapter.MyViewHolder>{
+class CM_RecyclerViewAdapter extends RecyclerView.Adapter<CM_RecyclerViewAdapter.MyViewHolder> implements Filterable {
     Context context;
     ArrayList<Car> carDetails;
+    ArrayList<Car> copyCarDetails;
+    private AlertDialog alertDialog;
+    CarDBHelper carDB;
+
 
     public CM_RecyclerViewAdapter(Context context, ArrayList<Car> carDetails){
         this.context = context;
         this.carDetails = carDetails;
+        this.copyCarDetails = new ArrayList<>(carDetails);
+        this.carDB = new CarDBHelper(context);
     }
+
+    public Filter getFilter() {
+        return carFilter;
+    }
+
+    private Filter carFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            ArrayList<Car> filteredList = new ArrayList<>();
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(copyCarDetails);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for (Car car : copyCarDetails) {
+                    // Customize this logic based on your filter criteria
+                    if (car.getFuelType().toLowerCase().contains(filterPattern)
+                            || String.valueOf(car.getMileage()).contains(filterPattern)
+                            || car.getFactoryName().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(car);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            carDetails.clear();
+            carDetails.addAll((ArrayList) results.values);
+            notifyDataSetChanged();
+        }
+    };
+
 
     @NotNull
     @Override
@@ -38,8 +92,98 @@ class CM_RecyclerViewAdapter extends RecyclerView.Adapter<CM_RecyclerViewAdapter
         holder.carName.setText(carDetails.get(position).getModel());
         holder.factoryName.setText(carDetails.get(position).getFactoryName());
         holder.price.setText("$" + carDetails.get(position).getPrice());
-        String imageUrl = "https://th.bing.com/th/id/R.3442a695e8b0034166c44738e620144e?rik=4PsNnbuNvEIElA&riu=http%3a%2f%2fstatic4.businessinsider.com%2fimage%2f5a4f952c3225de2b1a8b47cd-1227%2f2120x920mx-whitesunset.png&ehk=tK7vHbOXEaSxssvXQbCSNo4wd%2b86psdzI6KeZBdV85k%3d&risl=&pid=ImgRaw&r=0";
-        Picasso.get().load(imageUrl).into(holder.listImage);
+        String imageUrl = carDetails.get(position).getUrl();
+        Picasso.get().load(imageUrl).resize(0, 100).into(holder.listImage);
+
+        holder.carName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int adapterPosition = holder.getAdapterPosition();
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    showInformationDialog(carDetails.get(adapterPosition));
+                }
+            }
+        });
+
+        if(carDB.isFavorite(LoginPage.emailStr, carDetails.get(position).getId())) {
+            holder.favoriteButton.setIcon(ContextCompat.getDrawable(context, R.drawable.baseline_favorite_24));
+        }
+
+
+        // Implementing click listener for favoriteButton
+        holder.favoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int adapterPosition = holder.getAdapterPosition();
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    Car car = carDetails.get(adapterPosition);
+                    String userEmail = LoginPage.emailStr;
+                    int carId = car.getId();
+                    if (!carDB.isFavorite(userEmail,carId)) {
+                        if (carDB.addFavorite(userEmail, carId)) {
+                            Toast.makeText(context, "Added to favorites!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "Was not added to favorites!!!!", Toast.LENGTH_SHORT).show();
+                        }
+                        holder.favoriteButton.setIcon(ContextCompat.getDrawable(context, R.drawable.baseline_favorite_24));
+                    }else{
+                        if(carDB.removeFavorite(userEmail,carId)){
+                            holder.favoriteButton.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_round_favorite_border_24));
+                            Toast.makeText(context, "Removed from favorites!", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(context, "Was not removed from favorites!!!", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                }
+            }
+        });
+
+
+        final boolean[] isPlay = {false};
+
+        String userEmail = LoginPage.emailStr;
+        int adapterPosition = holder.getAdapterPosition();
+        if (adapterPosition == RecyclerView.NO_POSITION) {
+            return;
+        }
+
+        int carId = carDetails.get(adapterPosition).getId();
+
+        // Check if the car is already reserved by the current user
+        if (carDB.isReserved(userEmail, carId)) {
+            isPlay[0] = true;
+            holder.reservationButton.setIcon(ContextCompat.getDrawable(context, R.drawable.baseline_bookmark_24));
+        }
+        holder.reservationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (carDB.isReservedByOtherUser(userEmail, carId)) {
+                    Toast.makeText(context, "This car is already reserved!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (isPlay[0]) {
+                    if (carDB.deleteReservation(userEmail, carId)) {
+                        Toast.makeText(context, "Reservation deleted!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "Failed to delete Reservation", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if (showReservationDialog(carDetails.get(adapterPosition))) {
+                        Toast.makeText(context, "Reservation added!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        holder.reservationButton.setIcon(ContextCompat.getDrawable(context, R.drawable.baseline_bookmark_border_24));
+                    }
+                }
+
+                isPlay[0] = !isPlay[0];
+
+                int iconResourceId = isPlay[0] ? R.drawable.baseline_bookmark_24 : R.drawable.baseline_bookmark_border_24;
+                holder.reservationButton.setIcon(ContextCompat.getDrawable(context, iconResourceId));
+            }
+        });
+
     }
 
     @Override
@@ -50,19 +194,105 @@ class CM_RecyclerViewAdapter extends RecyclerView.Adapter<CM_RecyclerViewAdapter
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
         ImageView listImage;
-        Button favoriteButton;
-        Button reservationButton;
+        MaterialButton favoriteButton;
+        MaterialButton  reservationButton;
         TextView carName;
         TextView factoryName;
         TextView price;
         public MyViewHolder(@NotNull View itemView){
             super(itemView);
             listImage = itemView.findViewById(R.id.listImage);
-            favoriteButton = itemView.findViewById(R.id.favoriteButton);
-            reservationButton = itemView.findViewById(R.id.reservationButton);
+            favoriteButton = (MaterialButton) itemView.findViewById(R.id.favoriteButton);
+            reservationButton = (MaterialButton) itemView.findViewById(R.id.reservationButton);
             carName = itemView.findViewById(R.id.carNameTextView);
             factoryName = itemView.findViewById(R.id.factoryNameTextView);
             price = itemView.findViewById(R.id.priceTextView);
         }
     }
+
+    private void showInformationDialog(Car car) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        View dialogView = inflater.inflate(R.layout.information_dialog, null);
+        builder.setView(dialogView);
+
+        ImageView informationImage = dialogView.findViewById(R.id.informationImage);
+        TextView textCarNameInformation = dialogView.findViewById(R.id.textCarNameInformation);
+        TextView textFactoryNameInformation = dialogView.findViewById(R.id.textFactoryNameInformation);
+        TextView textPriceInformation = dialogView.findViewById(R.id.textPriceInformation);
+        TextView textFuelTypeInformation = dialogView.findViewById(R.id.textFuelTypeInformation);
+        TextView textTransmissionTypeInformation = dialogView.findViewById(R.id.textTransmissionTypeInformation);
+        TextView textMileageInformation = dialogView.findViewById(R.id.textMileageInformation);
+        String imageUrl = car.getUrl();
+        Picasso.get().load(imageUrl).resize(0, 100).into(informationImage);
+        textCarNameInformation.setText("Model: " + car.getModel());
+        textFactoryNameInformation.setText("Car Company: "+ car.getFactoryName());
+        textPriceInformation.setText("Price: $" + car.getPrice());
+        textFuelTypeInformation.setText("Fuel Type: " + car.getFuelType());
+        textTransmissionTypeInformation.setText("Transmission Type: " + car.getTransmissionType());
+        textMileageInformation.setText("Mileage: " + car.getMileage());
+
+        // Create and show the dialog
+        alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+
+    private boolean showReservationDialog(Car car) {
+        final boolean[] isPlay = {false};
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        View dialogView = inflater.inflate(R.layout.popup_reservation, null);
+        builder.setView(dialogView);
+
+        ImageView reservationImage = dialogView.findViewById(R.id.reservationImage);
+        TextView textCarNameReservation = dialogView.findViewById(R.id.textCarNameReservation);
+        TextView textFactoryNameReservation = dialogView.findViewById(R.id.textFactoryNameReservation);
+        TextView textPriceReservation = dialogView.findViewById(R.id.textPriceReservation);
+        TextView textFuelTypeReservation = dialogView.findViewById(R.id.textFuelTypeReservation);
+        TextView textTransmissionTypeReservation = dialogView.findViewById(R.id.textTransmissionTypeReservation);
+        TextView textMileageReservation = dialogView.findViewById(R.id.textMileageReservation);
+        TextView textReservationDate = dialogView.findViewById(R.id.textDateReservation);
+        Button buttonReservation = dialogView.findViewById(R.id.submitButtonReservation);
+
+        String imageUrl = car.getUrl();
+        Picasso.get().load(imageUrl).resize(0, 100).into(reservationImage);
+
+        textCarNameReservation.setText("Model: " + car.getModel());
+        textFactoryNameReservation.setText("Car Company: "+ car.getFactoryName());
+        textPriceReservation.setText("Price: $" + car.getPrice());
+        textFuelTypeReservation.setText("Fuel Type: " + car.getFuelType());
+        textTransmissionTypeReservation.setText("Transmission Type: " + car.getTransmissionType());
+        textMileageReservation.setText("Mileage: " + car.getMileage());
+        Date date = new Date();
+        // without time
+        String strDate = android.text.format.DateFormat.format("dd-MM-yyyy", date).toString();
+        textReservationDate.setText("Reservation Date: " + strDate);
+
+        buttonReservation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String userEmail = LoginPage.emailStr;
+                int carId = car.getId();
+                if (carDB.addReservation(userEmail, carId, strDate)) {
+                    // Show success message
+                    isPlay[0] = true;
+                    Toast.makeText(context, "Reservation added!", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Show error message
+                    Toast.makeText(context, "Failed to add reservation", Toast.LENGTH_SHORT).show();
+                }
+                alertDialog.dismiss();
+            }
+        });
+
+        // Create and show the dialog
+        alertDialog = builder.create();
+        alertDialog.show();
+
+        return isPlay[0];
+    }
+
 }

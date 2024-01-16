@@ -1,5 +1,7 @@
 package com.birzeit.advancecardealer;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,58 +9,76 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.regex.Pattern;
+
+
 public class ProfileFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ProfileFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String param1, String param2) {
-        ProfileFragment fragment = new ProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    EditText etFirstName, etLastName,etTelNumber, etPassword, etConfPassword;
+    Button btnUpdate;
+    LoginDBHelper loginDBHelper;
+    Pattern passwordPattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,12}$");
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        etFirstName = view.findViewById(R.id.firstNameProfile);
+        etLastName = view.findViewById(R.id.lastNameProfile);
+        etPassword = view.findViewById(R.id.passwordProfile);
+        etConfPassword = view.findViewById(R.id.confirmPasswordProfile);
+        etTelNumber=view.findViewById(R.id.phoneNumberProfile);
+        btnUpdate = view.findViewById(R.id.button_save);
+
+        loginDBHelper = new LoginDBHelper(getActivity());
+
+        // Replace with the actual logged-in user's email
+        String email = LoginPage.emailStr;
+
+        Cursor userDetails = loginDBHelper.getUserDetails(email);
+        if (userDetails.moveToFirst()) {
+            etFirstName.setText(userDetails.getString(userDetails.getColumnIndex(LoginDBHelper.COL_FIRSTNAME)));
+            etLastName.setText(userDetails.getString(userDetails.getColumnIndex(LoginDBHelper.COL_LASTNAME)));
+            etTelNumber.setText(userDetails.getString(userDetails.getColumnIndex(LoginDBHelper.COL_PHONE)));
+            //etPassword.setText(userDetails.getString(userDetails.getColumnIndex(LoginDBHelper.COL_PASSWORD)));
+        }
+
+
+
+        btnUpdate.setOnClickListener(v -> {
+            String newFirstName = etFirstName.getText().toString();
+            String newLastName = etLastName.getText().toString();
+            String newPhoneNumber = etTelNumber.getText().toString();
+            String newPassword = etPassword.getText().toString();
+            String newPasswordConf = etConfPassword.getText().toString();
+
+            if (!newFirstName.isEmpty() && !newLastName.isEmpty() && !newPhoneNumber.isEmpty() && !newPassword.isEmpty()) {
+
+                if (newFirstName.length() < 3 || newFirstName.length() > 10) {
+                    Toast.makeText(getActivity(), "First name must be between 3 and 10 characters", Toast.LENGTH_SHORT).show();
+                }else if (newLastName.length() < 3 || newLastName.length() > 10) {
+                    Toast.makeText(getActivity(), "Last name must be between 3 and 10 characters", Toast.LENGTH_SHORT).show();
+                }else if (!passwordPattern.matcher(newPassword).matches()) {
+                    Toast.makeText(getActivity(), "Password must contain at least one number, one lowercase letter, and one uppercase letter, and be between 6 and 12 characters", Toast.LENGTH_SHORT).show();
+                } else if(newPhoneNumber.length() < 7 || newPhoneNumber.length() > 10){
+                    Toast.makeText(getActivity(), "Phone number must be between 7 and 10 digits", Toast.LENGTH_SHORT).show();
+                }else if(!newPassword.equals(newPasswordConf)){
+                    Toast.makeText(getActivity(), "Passwords do not match!!", Toast.LENGTH_SHORT).show();
+                } else {
+                    loginDBHelper.updateUserDetails(email, newFirstName, newLastName, newPhoneNumber, newPassword);
+                    Toast.makeText(getActivity(), "User details changed successfully!", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(getActivity(), "Please fill all fields!!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        return view;
     }
 }
