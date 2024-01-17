@@ -131,6 +131,7 @@ public class CarDBHelper extends SQLiteOpenHelper{
         return result != -1;
     }
 
+<<<<<<< HEAD
     // checking favorites
     public boolean isFavorite(String userEmail, int carId) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -152,4 +153,10 @@ public class CarDBHelper extends SQLiteOpenHelper{
         db.close();
         return result > 0;
     }
+=======
+
+
+
+    // Add more methods as needed
+>>>>>>> origin/master
 }
