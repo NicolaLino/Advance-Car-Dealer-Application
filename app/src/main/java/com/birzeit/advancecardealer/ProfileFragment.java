@@ -55,18 +55,21 @@ public class ProfileFragment extends Fragment {
             etFirstName.setText(userDetails.getString(userDetails.getColumnIndex(LoginDBHelper.COL_FIRSTNAME)));
             etLastName.setText(userDetails.getString(userDetails.getColumnIndex(LoginDBHelper.COL_LASTNAME)));
             etTelNumber.setText(userDetails.getString(userDetails.getColumnIndex(LoginDBHelper.COL_PHONE)));
+
             //etPassword.setText(userDetails.getString(userDetails.getColumnIndex(LoginDBHelper.COL_PASSWORD)));
 
             // Load the saved image URI if available
             String imageUrl = userDetails.getString(userDetails.getColumnIndex(LoginDBHelper.COL_IMAGE_URL));
+            profileImageUri=Uri.parse(imageUrl);
             if (imageUrl != null && !imageUrl.isEmpty()) {
                 //profileImageUri = Uri.parse(imageUrl);
-                Picasso.get().load(imageUrl).resize(0, 100).into(profilePic);
+                profilePic.setImageURI(profileImageUri);
+                Picasso.get().load(imageUrl).resize(0, 60).into(profilePic);
                 //profilePic.setImageURI(profileImageUri);
             }else {
 
                 profileImageUri= Uri.parse("https://media.istockphoto.com/id/1221023970/photo/small-red-brick-house-with-green-grass.webp?s=612x612&w=is&k=20&c=eENSwiZty5RuN7ex1oCsCXzgbsHSCoT9s1VeoJyjGtU=");
-                Picasso.get().load(profileImageUri).resize(0, 100).into(profilePic);
+                Picasso.get().load(profileImageUri).resize(0, 60).into(profilePic);
             }
         }
 
@@ -92,8 +95,6 @@ public class ProfileFragment extends Fragment {
                 } else if (!newPassword.equals(newPasswordConf)) {
                     Toast.makeText(getActivity(), "Passwords do not match!!", Toast.LENGTH_SHORT).show();
                 } else {
-                    profileImageUri= Uri.parse("https://images.pexels.com/photos/88628/pexels-photo-88628.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
-
                     if (profileImageUri != null) {
                         // Save the image URI in the database
                         // Convert URI to string before saving if necessary
