@@ -152,5 +152,66 @@ public class CarDBHelper extends SQLiteOpenHelper{
         db.close();
         return result > 0;
     }
+    public boolean isCarReserved(int carId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] projection = {COL_RESERVATION_ID};
+        String selection = COL_CAR_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(carId)};
+        Cursor cursor = db.query(TABLE_RESERVATIONS, projection, selection, selectionArgs, null, null, null);
 
+        int rowCount = cursor.getCount();
+        cursor.close();
+        db.close();
+
+        return rowCount > 0; // Returns true if there is at least one reservation entry for the given car ID
+    }
+    public String getCustomerName(int carId, LoginDBHelper loginDBHelper) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] projection = {COL_USER_EMAIL};
+        String selection = COL_CAR_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(carId)};
+        Cursor cursor = db.query(TABLE_RESERVATIONS, projection, selection, selectionArgs, null, null, null);
+
+        String customerEmail = null;
+
+        if (cursor.moveToFirst()) {
+            customerEmail = cursor.getString(cursor.getColumnIndex(COL_USER_EMAIL));
+        }
+
+        cursor.close();
+        db.close();
+
+        if (customerEmail != null) {
+            // Assuming you have a LoginDBHelper for user details
+            Cursor userCursor = loginDBHelper.getUserDetails(customerEmail);
+
+            if (userCursor.moveToFirst()) {
+                String customerName = userCursor.getString(userCursor.getColumnIndex(LoginDBHelper.COL_FIRSTNAME));
+                customerName += " " + userCursor.getString(userCursor.getColumnIndex(LoginDBHelper.COL_LASTNAME));
+                userCursor.close();
+                return customerName;
+            }
+        }
+
+        return null;
+    }
+
+    public String getReservationDate(int carId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] projection = {COL_RESERVATION_DATE};
+        String selection = COL_CAR_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(carId)};
+        Cursor cursor = db.query(TABLE_RESERVATIONS, projection, selection, selectionArgs, null, null, null);
+
+        String date = ""; // Initialize with an empty string
+
+        if (cursor.moveToFirst()) {
+            date = cursor.getString(cursor.getColumnIndex(COL_RESERVATION_DATE));
+        }
+
+        cursor.close();
+        db.close();
+
+        return date;
+    }
 }
