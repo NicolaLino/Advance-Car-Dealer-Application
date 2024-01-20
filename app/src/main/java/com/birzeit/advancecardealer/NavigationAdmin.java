@@ -39,6 +39,11 @@ public class NavigationAdmin extends AppCompatActivity implements NavigationView
         TextView usernameTextView = headerView.findViewById(R.id.username);
         TextView emailTextView = headerView.findViewById(R.id.email);
 
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setTitle("Home");
+        }
+
+
         // Get user email. Replace 'userEmail' with the actual user's email.
         String userEmail = LoginPage.emailStr; // Replace this with the email used to login
 
@@ -73,23 +78,33 @@ public class NavigationAdmin extends AppCompatActivity implements NavigationView
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
+        String fragmentTitle = "";
 
         if (itemId == R.id.admin_nav_home) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_admin, new HomeAdminFragment()).commit();
+            fragmentTitle = "Home";
         } else if (itemId == R.id.admin_nav_delete) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_admin, new DeleteCustomerFragment()).commit();
+            fragmentTitle = "Delete Customer";
         } else if (itemId == R.id.admin_nav_add) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_admin, new AddAdminFragment()).commit();
+            fragmentTitle = "Add Admin";
         } else if (itemId == R.id.admin_nav_view_reserves) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_admin, new ViewReservesFragment()).commit();
+            fragmentTitle = "View Reserves";
         } else if (itemId == R.id.admin_nav_logout) {
             Intent returnToMain = new Intent(NavigationAdmin.this, LoginPage.class);
             startActivity(returnToMain);
         }
 
+        // Set the toolbar title based on the selected fragment
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(fragmentTitle);
+        }
+
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
-
     }
+
 
 }

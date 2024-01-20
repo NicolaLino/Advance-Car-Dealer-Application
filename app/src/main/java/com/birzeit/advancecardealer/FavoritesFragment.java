@@ -35,7 +35,7 @@ public class FavoritesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_car_menu, container, false);
+        View view = inflater.inflate(R.layout.fragment_favorites, container, false);
 
         if (carsRetrievedDetails != null) {
             for (int i = 0; i < carsRetrievedDetails.size(); i++) {
@@ -45,7 +45,7 @@ public class FavoritesFragment extends Fragment {
                 }
             }
             Log.d("TAG", "onCreateView: ArrayList is not empty");
-            RecyclerView recyclerView = view.findViewById(R.id.mRecyclerView);
+            RecyclerView recyclerView = view.findViewById(R.id.favoritesRecyclerView);
             CM_RecyclerViewAdapter adapter = new CM_RecyclerViewAdapter(getContext(), favCars);
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new androidx.recyclerview.widget.LinearLayoutManager(getContext()));

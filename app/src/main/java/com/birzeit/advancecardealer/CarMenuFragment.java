@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
 
+import com.google.android.material.button.MaterialButton;
+
 import java.util.ArrayList;
 
 
@@ -39,6 +41,14 @@ public class CarMenuFragment extends Fragment {
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new androidx.recyclerview.widget.LinearLayoutManager(getContext()));
         }
+
+        MaterialButton priceFilterBtn = view.findViewById(R.id.priceFilterBtn);
+        priceFilterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                adapter.filterByPrice();
+            }
+        });
 
         return view;
     }
