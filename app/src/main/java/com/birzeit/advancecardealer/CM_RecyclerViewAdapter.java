@@ -29,12 +29,14 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 
-class CM_RecyclerViewAdapter extends RecyclerView.Adapter<CM_RecyclerViewAdapter.MyViewHolder> implements Filterable {
+class CM_RecyclerViewAdapter extends RecyclerView.Adapter<CM_RecyclerViewAdapter.MyViewHolder>{
     Context context;
     ArrayList<Car> carDetails;
     ArrayList<Car> copyCarDetails;
     private AlertDialog alertDialog;
     CarDBHelper carDB;
+
+    private ArrayList<Car> filteredList; // New variable for the filtered list
 
 
     public CM_RecyclerViewAdapter(Context context, ArrayList<Car> carDetails){
@@ -44,39 +46,6 @@ class CM_RecyclerViewAdapter extends RecyclerView.Adapter<CM_RecyclerViewAdapter
         this.carDB = new CarDBHelper(context);
     }
 
-    public Filter getFilter() {
-        return carFilter;
-    }
-
-    private Filter carFilter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            ArrayList<Car> filteredList = new ArrayList<>();
-            if (constraint == null || constraint.length() == 0) {
-                filteredList.addAll(copyCarDetails);
-            } else {
-                String filterPattern = constraint.toString().toLowerCase().trim();
-                for (Car car : copyCarDetails) {
-                    // Customize this logic based on your filter criteria
-                    if (car.getFuelType().toLowerCase().contains(filterPattern)
-                            || String.valueOf(car.getMileage()).contains(filterPattern)
-                            || car.getFactoryName().toLowerCase().contains(filterPattern)) {
-                        filteredList.add(car);
-                    }
-                }
-            }
-            FilterResults results = new FilterResults();
-            results.values = filteredList;
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            carDetails.clear();
-            carDetails.addAll((ArrayList) results.values);
-            notifyDataSetChanged();
-        }
-    };
 
 
     @NotNull
@@ -191,6 +160,7 @@ class CM_RecyclerViewAdapter extends RecyclerView.Adapter<CM_RecyclerViewAdapter
         return carDetails.size();
     }
 
+
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
         ImageView listImage;
@@ -268,7 +238,8 @@ class CM_RecyclerViewAdapter extends RecyclerView.Adapter<CM_RecyclerViewAdapter
         textMileageReservation.setText("Mileage: " + car.getMileage());
         Date date = new Date();
         // without time
-        String strDate = android.text.format.DateFormat.format("dd-MM-yyyy", date).toString();
+        // date with time
+        String strDate = android.text.format.DateFormat.format("dd-MM-yyyy hh:mm:ss", date).toString();
         textReservationDate.setText("Reservation Date: " + strDate);
 
         buttonReservation.setOnClickListener(new View.OnClickListener() {

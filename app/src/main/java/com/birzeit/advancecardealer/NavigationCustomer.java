@@ -65,9 +65,9 @@ public class NavigationCustomer extends AppCompatActivity implements NavigationV
         toggle.syncState();
 
         if (getSupportActionBar() != null) {
-//          getSupportActionBar().setTitle();
+          getSupportActionBar().setTitle("Home");
 //            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
+//            getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
         if(savedInstanceState == null){
@@ -78,26 +78,41 @@ public class NavigationCustomer extends AppCompatActivity implements NavigationV
 
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item){
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId == R.id.nav_home){
+        String fragmentTitle = "";
+
+        if (itemId == R.id.nav_home) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeCustomerFragment()).commit();
+            fragmentTitle = "Home";
         } else if (itemId == R.id.nav_car_menu) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CarMenuFragment()).commit();
+            fragmentTitle = "Car Menu";
         } else if (itemId == R.id.nav_favorites) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FavoritesFragment()).commit();
-        } else if (itemId == R.id.nav_profile){
+            fragmentTitle = "Favorites";
+        } else if (itemId == R.id.nav_profile) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+            fragmentTitle = "Profile";
         } else if (itemId == R.id.nav_reservations) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ReservationsFragment()).commit();
+            fragmentTitle = "Reservations";
         } else if (itemId == R.id.nav_special_offers) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SpecialOffersFragment()).commit();
+            fragmentTitle = "Special Offers";
         } else if (itemId == R.id.nav_call_us) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CallUsFragment()).commit();
-        } else if (itemId == R.id.nav_logout){
+            fragmentTitle = "Call Us";
+        } else if (itemId == R.id.nav_logout) {
             Intent returnToLogin = new Intent(NavigationCustomer.this, LoginPage.class);
             startActivity(returnToLogin);
         }
+
+        // Set the toolbar title based on the selected fragment
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(fragmentTitle);
+        }
+
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }

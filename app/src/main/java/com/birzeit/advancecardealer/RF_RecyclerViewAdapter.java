@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
@@ -33,6 +34,8 @@ public class RF_RecyclerViewAdapter extends RecyclerView.Adapter<RF_RecyclerView
         this.carDetails = carDetails;
         this.carDB = new CarDBHelper(context);
     }
+
+
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
