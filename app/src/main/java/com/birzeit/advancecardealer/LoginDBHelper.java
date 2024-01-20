@@ -22,6 +22,8 @@ public class LoginDBHelper extends SQLiteOpenHelper {
     public static final String COL_PHONE = "phone";
     public static final String COL_COUNTRY = "country";
     public static final String COL_CITY = "city";
+    public static final String COL_IMAGE_URL = "image_url";
+
 
     public LoginDBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -39,7 +41,8 @@ public class LoginDBHelper extends SQLiteOpenHelper {
                 COL_PHONE + " TEXT, " +
                 COL_COUNTRY + " TEXT, " +
                 COL_CITY + " TEXT, " +
-                COL_ADMIN + " INTEGER DEFAULT 0)";
+                COL_ADMIN + " INTEGER DEFAULT 0, " +
+                COL_IMAGE_URL + " TEXT)";
 
         db.execSQL(createTable);
     }
@@ -121,5 +124,18 @@ public class LoginDBHelper extends SQLiteOpenHelper {
         db.close();
         return result > 0;
 
+    }
+
+    public boolean updateUserDetailsWithImage(String email, String newFirstName, String newLastName, String newPhoneNumber, String newPassword, String imageUrl) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_FIRSTNAME, newFirstName);
+        contentValues.put(COL_LASTNAME, newLastName);
+        contentValues.put(COL_PHONE, newPhoneNumber);
+        contentValues.put(COL_PASSWORD, newPassword);
+        contentValues.put(COL_IMAGE_URL, imageUrl);
+        int result = db.update(TABLE_NAME, contentValues, COL_EMAIL + "=?", new String[]{email});
+        db.close();
+        return result > 0;
     }
 }
