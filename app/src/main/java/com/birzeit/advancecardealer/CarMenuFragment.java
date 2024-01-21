@@ -43,10 +43,34 @@ public class CarMenuFragment extends Fragment {
         }
 
         MaterialButton priceFilterBtn = view.findViewById(R.id.priceFilterBtn);
-        priceFilterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                adapter.filterByPrice();
+        priceFilterBtn.setOnClickListener(v -> adapter.filterByPrice());
+
+        MaterialButton allFilterBtn = view.findViewById(R.id.allFilterBtn);
+        allFilterBtn.setOnClickListener(v -> {
+            if (adapter != null) {
+                adapter.showAllCars();
+            }
+        });
+
+        MaterialButton mileageFilterBtn = view.findViewById(R.id.mileageFilterBtn);
+        mileageFilterBtn.setOnClickListener(v -> {
+            if (adapter != null) {
+                adapter.showMileageFilterDialog();
+            }
+        });
+
+        MaterialButton transmissionFilterBtn = view.findViewById(R.id.transmissionTypeFilterBtn);
+
+        transmissionFilterBtn.setOnClickListener(v -> {
+            if (adapter != null) {
+                adapter.showTransmissionTypeFilterDialog();
+            }
+        });
+
+        MaterialButton fuelTypeFilterBtn = view.findViewById(R.id.fuelTypeFilterBtn);
+        fuelTypeFilterBtn.setOnClickListener(v -> {
+            if (adapter != null) {
+                adapter.showFuelTypeFilterDialog();
             }
         });
 
