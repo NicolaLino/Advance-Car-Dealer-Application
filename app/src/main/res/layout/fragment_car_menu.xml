@@ -19,19 +19,91 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/priceFilterBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:backgroundTint="@color/gray"
-        android:includeFontPadding="false"
-        android:paddingHorizontal="13dp"
-        android:paddingVertical="8dp"
-        android:text="Filter"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        app:strokeColor="@color/red"
-        app:strokeWidth="2dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/allFilterBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/gray"
+                android:includeFontPadding="false"
+                android:paddingHorizontal="13dp"
+                android:paddingVertical="8dp"
+                android:text="All"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:strokeColor="@color/red"
+                app:strokeWidth="2dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/priceFilterBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:backgroundTint="@color/gray"
+                android:includeFontPadding="false"
+                android:paddingHorizontal="13dp"
+                android:paddingVertical="8dp"
+                android:text="Price"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:strokeColor="@color/red"
+                app:strokeWidth="2dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mileageFilterBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/gray"
+                android:includeFontPadding="false"
+                android:paddingHorizontal="13dp"
+                android:paddingVertical="8dp"
+                android:text="Mileage"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:strokeColor="@color/red"
+                app:strokeWidth="2dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/transmissionTypeFilterBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/gray"
+                android:includeFontPadding="false"
+                android:paddingHorizontal="13dp"
+                android:paddingVertical="8dp"
+                android:text="Transmission Type"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:strokeColor="@color/red"
+                app:strokeWidth="2dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/fuelTypeFilterBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/gray"
+                android:includeFontPadding="false"
+                android:paddingHorizontal="13dp"
+                android:paddingVertical="8dp"
+                android:text="Fuel Type"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:strokeColor="@color/red"
+                app:strokeWidth="2dp" />
+        </LinearLayout>
     </HorizontalScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -44,6 +116,8 @@
     app:layout_constraintHorizontal_bias="1.0"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
-    app:layout_constraintVertical_bias="1.0" />
+    app:layout_constraintVertical_bias="1.0" >
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
