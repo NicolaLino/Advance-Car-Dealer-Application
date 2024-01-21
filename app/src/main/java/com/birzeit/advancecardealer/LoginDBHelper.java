@@ -65,6 +65,7 @@ public class LoginDBHelper extends SQLiteOpenHelper {
         values.put(COL_COUNTRY, country);
         values.put(COL_CITY, city);
         values.put(COL_ADMIN, isAdmin ? 1 : 0); // Convert boolean to integer
+        values.put(COL_IMAGE_URL,"");
         long result = db.insert(TABLE_NAME, null, values);
         db.close();
         return result != -1;
