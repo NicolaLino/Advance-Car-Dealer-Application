@@ -120,7 +120,15 @@ public class CarDBHelper extends SQLiteOpenHelper{
     }
 
 
+    public void deleteAllUserReservations(String userEmail) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String whereClause = COL_USER_EMAIL + " = ?";
+        String[] whereArgs = {userEmail};
+        int result = db.delete(TABLE_RESERVATIONS, whereClause, whereArgs);
+        db.close();
 
+        //return result > 0; // Returns true if at least one row was affected (deleted)
+    }
     public boolean addFavorite(String userEmail, int carId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();

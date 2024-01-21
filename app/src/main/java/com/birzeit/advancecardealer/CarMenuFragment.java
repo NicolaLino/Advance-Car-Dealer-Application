@@ -47,9 +47,9 @@ public class CarMenuFragment extends Fragment {
 
         MaterialButton allFilterBtn = view.findViewById(R.id.allFilterBtn);
         allFilterBtn.setOnClickListener(v -> {
-            if (adapter != null) {
+
                 adapter.showAllCars();
-            }
+
         });
 
         MaterialButton mileageFilterBtn = view.findViewById(R.id.mileageFilterBtn);

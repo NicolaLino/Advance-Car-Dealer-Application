@@ -14,7 +14,7 @@ import android.widget.Toast;
 public class DeleteCustomerFragment extends Fragment {
 
     private LoginDBHelper dbHelper; // Make sure to initialize this variable
-
+    private CarDBHelper carDBHelper;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -26,13 +26,13 @@ public class DeleteCustomerFragment extends Fragment {
 
         // Initialize dbHelper (replace YourActivity with the actual name of your activity)
         dbHelper = new LoginDBHelper(getActivity());
-
+        carDBHelper= new CarDBHelper(getActivity());
         // Set onClickListener for the deleteButton
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String emailToDelete = editTextEmailToDelete.getText().toString();
-                boolean isDeleted = dbHelper.deleteUser(emailToDelete);
+                boolean isDeleted = dbHelper.deleteUser(emailToDelete,carDBHelper);
                 if (emailToDelete.isEmpty()) {
                     Toast.makeText(getActivity(), "Please enter an email", Toast.LENGTH_SHORT).show();
                 } else {

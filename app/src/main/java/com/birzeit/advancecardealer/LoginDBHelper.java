@@ -107,10 +107,11 @@ public class LoginDBHelper extends SQLiteOpenHelper {
         return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COL_EMAIL + "=?", new String[]{email});
     }
 
-    public boolean deleteUser(String email) {
+    public boolean deleteUser(String email, CarDBHelper carDBHelper) {
         SQLiteDatabase db = this.getWritableDatabase();
         int deletedRows = db.delete(TABLE_NAME, COL_EMAIL + "=?", new String[]{email});
         db.close();
+        carDBHelper.deleteAllUserReservations(email);
         return deletedRows > 0;
     }
 
