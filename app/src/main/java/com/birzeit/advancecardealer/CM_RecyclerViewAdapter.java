@@ -257,7 +257,7 @@ class CM_RecyclerViewAdapter extends RecyclerView.Adapter<CM_RecyclerViewAdapter
                 if (carDB.addReservation(userEmail, carId, strDate)) {
                     // Show success message
                     isPlay[0] = true;
-                    Toast.makeText(context, "Reservation added!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Reservation added in date: !", Toast.LENGTH_SHORT).show();
                 } else {
                     // Show error message
                     Toast.makeText(context, "Failed to add reservation", Toast.LENGTH_SHORT).show();
