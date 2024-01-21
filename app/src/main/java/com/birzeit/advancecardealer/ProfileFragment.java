@@ -66,11 +66,11 @@ public class ProfileFragment extends Fragment {
                 profilePic.setImageURI(profileImageUri);
                 Picasso.get().load(imageUrl).resize(0, 60).into(profilePic);
                 //profilePic.setImageURI(profileImageUri);
-            }else {
-
-                profileImageUri= Uri.parse("https://media.istockphoto.com/id/1221023970/photo/small-red-brick-house-with-green-grass.webp?s=612x612&w=is&k=20&c=eENSwiZty5RuN7ex1oCsCXzgbsHSCoT9s1VeoJyjGtU=");
-                Picasso.get().load(profileImageUri).resize(0, 60).into(profilePic);
             }
+
+//                profileImageUri= Uri.parse("https://media.istockphoto.com/id/1221023970/photo/small-red-brick-house-with-green-grass.webp?s=612x612&w=is&k=20&c=eENSwiZty5RuN7ex1oCsCXzgbsHSCoT9s1VeoJyjGtU=");
+//                Picasso.get().load(profileImageUri).resize(0, 60).into(profilePic);
+
         }
 
         profilePic.setOnClickListener(v -> openFileChooser());
