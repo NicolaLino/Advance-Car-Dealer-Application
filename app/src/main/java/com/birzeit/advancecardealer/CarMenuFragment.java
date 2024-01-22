@@ -43,38 +43,64 @@ public class CarMenuFragment extends Fragment {
         }
 
         MaterialButton priceFilterBtn = view.findViewById(R.id.priceFilterBtn);
-        priceFilterBtn.setOnClickListener(v -> adapter.filterByPrice());
-
         MaterialButton allFilterBtn = view.findViewById(R.id.allFilterBtn);
-        allFilterBtn.setOnClickListener(v -> {
-
-                adapter.showAllCars();
-
-        });
-
         MaterialButton mileageFilterBtn = view.findViewById(R.id.mileageFilterBtn);
-        mileageFilterBtn.setOnClickListener(v -> {
+        MaterialButton transmissionFilterBtn = view.findViewById(R.id.transmissionTypeFilterBtn);
+        MaterialButton fuelTypeFilterBtn = view.findViewById(R.id.fuelTypeFilterBtn);
+
+
+        priceFilterBtn.setOnClickListener(v -> {
             if (adapter != null) {
-                adapter.showMileageFilterDialog();
+                adapter.filterByPrice();
+                priceFilterBtn.setBackgroundColor(getResources().getColor(R.color.gray));
+                priceFilterBtn.setTextColor(getResources().getColor(R.color.red));
             }
         });
 
-        MaterialButton transmissionFilterBtn = view.findViewById(R.id.transmissionTypeFilterBtn);
+
+        mileageFilterBtn.setOnClickListener(v -> {
+            if (adapter != null) {
+                adapter.showMileageFilterDialog();
+                mileageFilterBtn.setBackgroundColor(getResources().getColor(R.color.gray));
+                mileageFilterBtn.setTextColor(getResources().getColor(R.color.red));
+            }
+        });
+
 
         transmissionFilterBtn.setOnClickListener(v -> {
             if (adapter != null) {
                 adapter.showTransmissionTypeFilterDialog();
+                transmissionFilterBtn.setBackgroundColor(getResources().getColor(R.color.gray));
+                transmissionFilterBtn.setTextColor(getResources().getColor(R.color.red));
             }
         });
 
-        MaterialButton fuelTypeFilterBtn = view.findViewById(R.id.fuelTypeFilterBtn);
         fuelTypeFilterBtn.setOnClickListener(v -> {
             if (adapter != null) {
                 adapter.showFuelTypeFilterDialog();
+                fuelTypeFilterBtn.setBackgroundColor(getResources().getColor(R.color.gray));
+                fuelTypeFilterBtn.setTextColor(getResources().getColor(R.color.red));
             }
+        });
+
+        allFilterBtn.setOnClickListener(v -> {
+            if (adapter != null) {
+                adapter.showAllCars();
+                priceFilterBtn.setBackgroundColor(getResources().getColor(R.color.black));
+                priceFilterBtn.setTextColor(getResources().getColor(R.color.white));
+                mileageFilterBtn.setBackgroundColor(getResources().getColor(R.color.black));
+                mileageFilterBtn.setTextColor(getResources().getColor(R.color.white));
+                transmissionFilterBtn.setBackgroundColor(getResources().getColor(R.color.black));
+                transmissionFilterBtn.setTextColor(getResources().getColor(R.color.white));
+                fuelTypeFilterBtn.setBackgroundColor(getResources().getColor(R.color.black));
+                fuelTypeFilterBtn.setTextColor(getResources().getColor(R.color.white));
+            }
+
         });
 
         return view;
     }
+
+
 
 }
