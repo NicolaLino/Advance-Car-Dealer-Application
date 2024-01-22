@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeCustomerFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Home Customer"
-        android:textColor="@color/black"
-        android:textSize="30dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</RelativeLayout>
+        <!-- TODO: Update blank fragment layout -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Welcome to Advance Car Dealer!\n\nAbout Us:\nAdvance Car Dealer is a reputable and customer-centric car dealership dedicated to providing top-notch services in the automotive industry. With a rich history spanning over two decades, we have established ourselves as a trusted name in the community. Our commitment to excellence, transparency, and customer satisfaction sets us apart in the competitive automotive market.\n\nDealer Name:\n🚗 Advance Car Dealer 🚗\n\nOur History:\nSince our inception in 2000, Advance Car Dealer has been a proud member of the community, helping individuals and families find their dream cars. Over the years, we have built strong relationships with customers, earning their trust through fair dealings and a wide selection of high-quality vehicles.\n\nOur Mission:\nAt Advance Car Dealer, our mission is to make the car-buying experience seamless, enjoyable, and stress-free. We believe in providing a diverse inventory of vehicles, ranging from fuel-efficient sedans to powerful SUVs, catering to the unique needs and preferences of our valued customers.\n\nWhy Choose Us?\n✅ Extensive Selection: Explore a diverse range of new and pre-owned vehicles.\n✅ Transparent Deals: We believe in transparent pricing and honest transactions.\n✅ Customer Satisfaction: Your satisfaction is our top priority.\n✅ Knowledgeable Staff: Our experienced team is here to assist you at every step.\n\nVisit us today to discover the perfect car that suits your lifestyle and preferences. Advance Car Dealer - Where Your Journey Begins!"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+</ScrollView>
