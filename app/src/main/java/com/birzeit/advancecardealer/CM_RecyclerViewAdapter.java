@@ -34,7 +34,7 @@ class CM_RecyclerViewAdapter extends RecyclerView.Adapter<CM_RecyclerViewAdapter
     private AlertDialog alertDialog;
     CarDBHelper carDB;
 
-    private ArrayList<Car> filteredList; // New variable for the filtered list
+    private ArrayList<Car> filteredList;
 
 
     public CM_RecyclerViewAdapter(Context context, ArrayList<Car> carDetails){
@@ -75,6 +75,8 @@ class CM_RecyclerViewAdapter extends RecyclerView.Adapter<CM_RecyclerViewAdapter
 
         if(carDB.isFavorite(LoginPage.emailStr, copyCarDetails.get(position).getId())) {
             holder.favoriteButton.setIcon(ContextCompat.getDrawable(context, R.drawable.baseline_favorite_24));
+        }else{
+            holder.favoriteButton.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_round_favorite_border_24));
         }
 
 
@@ -122,6 +124,8 @@ class CM_RecyclerViewAdapter extends RecyclerView.Adapter<CM_RecyclerViewAdapter
         if (carDB.isReserved(userEmail, carId)) {
             isPlay[0] = true;
             holder.reservationButton.setIcon(ContextCompat.getDrawable(context, R.drawable.baseline_bookmark_24));
+        }else{
+            holder.reservationButton.setIcon(ContextCompat.getDrawable(context, R.drawable.baseline_bookmark_border_24));
         }
         holder.reservationButton.setOnClickListener(new View.OnClickListener() {
             @Override

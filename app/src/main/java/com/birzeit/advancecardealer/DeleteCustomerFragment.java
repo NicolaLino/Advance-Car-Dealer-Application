@@ -27,7 +27,7 @@ public class DeleteCustomerFragment extends Fragment {
         // Initialize dbHelper (replace YourActivity with the actual name of your activity)
         dbHelper = new LoginDBHelper(getActivity());
         carDBHelper= new CarDBHelper(getActivity());
-        // Set onClickListener for the deleteButton
+
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,8 +48,5 @@ public class DeleteCustomerFragment extends Fragment {
         return view;
     }
 
-    // Rest of your code...
-
-    // Make sure to define TABLE_NAME, COL_EMAIL, and other constants
 
 }

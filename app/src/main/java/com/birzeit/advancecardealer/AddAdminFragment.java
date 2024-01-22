@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
 public class AddAdminFragment extends Fragment {
 
     public AddAdminFragment() {
-        // Required empty public constructor
+
     }
     TextView textViewPhoneAddAdmin;
     Spinner countrySpinner, citySpinner, genderSpinner;
