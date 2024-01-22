@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
@@ -131,11 +130,11 @@ public class RF_RecyclerViewAdapter extends RecyclerView.Adapter<RF_RecyclerView
         TextView price;
         public MyViewHolder(@NotNull View itemView){
             super(itemView);
-            listImage = itemView.findViewById(R.id.listImage);
+            listImage = itemView.findViewById(R.id.listImage3);
             favoriteButton = itemView.findViewById(R.id.favoriteButton);
             reservationButton = (MaterialButton) itemView.findViewById(R.id.reservationButton);
             carName = itemView.findViewById(R.id.carNameTextView);
-            factoryName = itemView.findViewById(R.id.factoryNameTextView);
+            factoryName = itemView.findViewById(R.id.location1NameTextView);
             price = itemView.findViewById(R.id.priceTextView);
         }
     }

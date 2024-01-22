@@ -5,21 +5,16 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.button.MaterialButton;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ADR_RecyclerViewAdapter extends RecyclerView.Adapter<ADR_RecyclerViewAdapter.MyViewHolder>{
     Context context;
@@ -87,9 +82,9 @@ public class ADR_RecyclerViewAdapter extends RecyclerView.Adapter<ADR_RecyclerVi
         TextView reservationDate;
         public MyViewHolder(@NotNull View itemView){
             super(itemView);
-            listImage = itemView.findViewById(R.id.listImage);
+            listImage = itemView.findViewById(R.id.listImage3);
             carName = itemView.findViewById(R.id.carNameTextView);
-            factoryName = itemView.findViewById(R.id.factoryNameTextView);
+            factoryName = itemView.findViewById(R.id.location1NameTextView);
             price = itemView.findViewById(R.id.priceTextView);
             customerName=itemView.findViewById(R.id.view_customerName);
             reservationDate=itemView.findViewById(R.id.view_date);

@@ -4,20 +4,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,10 +57,10 @@ class CM_RecyclerViewAdapter extends RecyclerView.Adapter<CM_RecyclerViewAdapter
 
     @Override
     public void onBindViewHolder(@NotNull CM_RecyclerViewAdapter.MyViewHolder holder, int position){
-        holder.carName.setText(carDetails.get(position).getModel());
-        holder.factoryName.setText(carDetails.get(position).getFactoryName());
-        holder.price.setText("$" + carDetails.get(position).getPrice());
-        String imageUrl = carDetails.get(position).getUrl();
+        holder.carName.setText(copyCarDetails.get(position).getModel());
+        holder.factoryName.setText(copyCarDetails.get(position).getFactoryName());
+        holder.price.setText("$" + copyCarDetails.get(position).getPrice());
+        String imageUrl = copyCarDetails.get(position).getUrl();
         Picasso.get().load(imageUrl).resize(0, 100).into(holder.listImage);
 
         holder.carName.setOnClickListener(new View.OnClickListener() {
@@ -76,12 +68,12 @@ class CM_RecyclerViewAdapter extends RecyclerView.Adapter<CM_RecyclerViewAdapter
             public void onClick(View view) {
                 int adapterPosition = holder.getAdapterPosition();
                 if (adapterPosition != RecyclerView.NO_POSITION) {
-                    showInformationDialog(carDetails.get(adapterPosition));
+                    showInformationDialog(copyCarDetails.get(adapterPosition));
                 }
             }
         });
 
-        if(carDB.isFavorite(LoginPage.emailStr, carDetails.get(position).getId())) {
+        if(carDB.isFavorite(LoginPage.emailStr, copyCarDetails.get(position).getId())) {
             holder.favoriteButton.setIcon(ContextCompat.getDrawable(context, R.drawable.baseline_favorite_24));
         }
 
@@ -92,7 +84,7 @@ class CM_RecyclerViewAdapter extends RecyclerView.Adapter<CM_RecyclerViewAdapter
             public void onClick(View view) {
                 int adapterPosition = holder.getAdapterPosition();
                 if (adapterPosition != RecyclerView.NO_POSITION) {
-                    Car car = carDetails.get(adapterPosition);
+                    Car car = copyCarDetails.get(adapterPosition);
                     String userEmail = LoginPage.emailStr;
                     int carId = car.getId();
                     if (!carDB.isFavorite(userEmail,carId)) {
@@ -124,7 +116,7 @@ class CM_RecyclerViewAdapter extends RecyclerView.Adapter<CM_RecyclerViewAdapter
             return;
         }
 
-        int carId = carDetails.get(adapterPosition).getId();
+        int carId = copyCarDetails.get(adapterPosition).getId();
 
         // Check if the car is already reserved by the current user
         if (carDB.isReserved(userEmail, carId)) {
@@ -146,7 +138,7 @@ class CM_RecyclerViewAdapter extends RecyclerView.Adapter<CM_RecyclerViewAdapter
                         Toast.makeText(context, "Failed to delete Reservation", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    if (showReservationDialog(carDetails.get(adapterPosition))) {
+                    if (showReservationDialog(copyCarDetails.get(adapterPosition))) {
                         Toast.makeText(context, "Reservation added!", Toast.LENGTH_SHORT).show();
                     } else {
                         holder.reservationButton.setIcon(ContextCompat.getDrawable(context, R.drawable.baseline_bookmark_border_24));
@@ -164,7 +156,7 @@ class CM_RecyclerViewAdapter extends RecyclerView.Adapter<CM_RecyclerViewAdapter
 
     @Override
     public int getItemCount(){
-        return carDetails.size();
+        return copyCarDetails.size();
     }
 
 
@@ -178,11 +170,11 @@ class CM_RecyclerViewAdapter extends RecyclerView.Adapter<CM_RecyclerViewAdapter
         TextView price;
         public MyViewHolder(@NotNull View itemView){
             super(itemView);
-            listImage = itemView.findViewById(R.id.listImage);
+            listImage = itemView.findViewById(R.id.listImage3);
             favoriteButton = (MaterialButton) itemView.findViewById(R.id.favoriteButton);
             reservationButton = (MaterialButton) itemView.findViewById(R.id.reservationButton);
             carName = itemView.findViewById(R.id.carNameTextView);
-            factoryName = itemView.findViewById(R.id.factoryNameTextView);
+            factoryName = itemView.findViewById(R.id.location1NameTextView);
             price = itemView.findViewById(R.id.priceTextView);
         }
     }
@@ -531,8 +523,8 @@ class CM_RecyclerViewAdapter extends RecyclerView.Adapter<CM_RecyclerViewAdapter
 
 
     private void updateAdapter(ArrayList<Car> filteredList) {
-        carDetails.clear();
-        carDetails.addAll(filteredList);
+        copyCarDetails.clear();
+        copyCarDetails.addAll(filteredList);
         notifyDataSetChanged();
     }
 

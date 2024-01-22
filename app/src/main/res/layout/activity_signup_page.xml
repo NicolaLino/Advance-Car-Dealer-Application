@@ -9,8 +9,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayoutSignup"
-        android:layout_width="431dp"
-        android:layout_height="350dp"
+        android:layout_width="444dp"
+        android:layout_height="819dp"
         android:background="@drawable/rounded_lower_corners"
         android:backgroundTint="@color/black"
         android:orientation="vertical"
@@ -18,7 +18,7 @@
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/constraintLayoutSignup"
@@ -250,10 +250,11 @@
         android:id="@+id/buttonBackToLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/black"
         android:text="Already have an Account? Login"
-        android:textColor="@color/black"
+        android:textColor="@color/red"
         android:textSize="16dp"
+        android:fontFamily="@font/robot_medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"

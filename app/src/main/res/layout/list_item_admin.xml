@@ -18,7 +18,7 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/listImage"
+            android:id="@+id/listImage3"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_marginStart="5dp"
@@ -46,11 +46,11 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/listImage"
+            app:layout_constraintStart_toEndOf="@+id/listImage3"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/factoryNameTextView"
+            android:id="@+id/location1NameTextView"
             android:layout_width="177dp"
             android:layout_height="21dp"
             android:layout_marginStart="12dp"
@@ -58,7 +58,7 @@
             android:textColor="@color/white"
             android:textSize="15sp"
             app:layout_constraintBottom_toTopOf="@+id/priceTextView"
-            app:layout_constraintStart_toEndOf="@+id/listImage"
+            app:layout_constraintStart_toEndOf="@+id/listImage3"
             app:layout_constraintTop_toBottomOf="@+id/carNameTextView"
             app:layout_constraintVertical_bias="0.0" />
 
@@ -75,7 +75,7 @@
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="parent"
 
-            app:layout_constraintStart_toStartOf="@+id/factoryNameTextView" />
+            app:layout_constraintStart_toStartOf="@+id/location1NameTextView" />
 
         <!-- New TextViews -->
         <TextView
@@ -88,7 +88,7 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/view_date"
-            app:layout_constraintStart_toEndOf="@+id/listImage"
+            app:layout_constraintStart_toEndOf="@+id/listImage3"
             app:layout_constraintTop_toBottomOf="@+id/priceTextView" />
 
         <TextView
@@ -102,7 +102,7 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/listImage"
+            app:layout_constraintStart_toEndOf="@+id/listImage3"
             app:layout_constraintTop_toBottomOf="@+id/view_customerName" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
