@@ -1,6 +1,6 @@
 # 🚀 Car Dealer Android Application
 
-## Introduction
+
 Welcome to the **Advance Car Dealer** Android application. This app provides a seamless experience for users to explore, reserve, and interact with the car dealer's offerings.
 
 ![demonstration](screenshot.png)
